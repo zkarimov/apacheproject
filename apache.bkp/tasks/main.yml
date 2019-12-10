@@ -1,0 +1,21 @@
+---
+- name: install apache and firewalld
+  yum:
+    name:
+      - httpd
+      - firewalld
+    state: latest
+- name: starting apache service
+  service: name=httpd state=started
+- name: starting firewalld
+  service:
+    name: firewalld
+    enabled: yes
+    state: started
+- name: firewalld permits httpd service
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+    immediate: yes
+
